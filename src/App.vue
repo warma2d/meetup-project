@@ -1,9 +1,71 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div>
+    <AppSpinner ref="appSpinner"></AppSpinner>
+
+    <div class="wrapper bg-grey">
+      <BaseLayout>
+        <AppToaster ref="appToaster"></AppToaster>
+        <routerView></routerView>
+      </BaseLayout>
     </div>
-    <router-view />
   </div>
 </template>
+
+<script>
+import BaseLayout from "@/layouts/BaseLayout";
+import AppToaster from "@/components/AppToaster";
+import {
+  GLOBAL_TOASTER_ERROR_EVENT_NAME,
+  GLOBAL_TOASTER_SUCCESS_EVENT_NAME,
+  SHOW_SPINNER_EVENT_NAME,
+  HIDE_SPINNER_EVENT_NAME,
+} from "@/js/constants";
+import AppSpinner from "@/components/AppSpinner/AppSpinner";
+
+export default {
+  name: "App",
+  components: { AppSpinner, AppToaster, BaseLayout },
+
+  metaInfo: {
+    title: "Default name",
+    titleTemplate: "%s | Meetup service",
+  },
+
+  data() {
+    return {
+      isShowContent: false,
+    };
+  },
+
+  beforeCreate() {
+    this.$root.$on(GLOBAL_TOASTER_ERROR_EVENT_NAME, (errorEventPayload) => {
+      let message =
+        "Произошла непредвиденная ошибка, пожалуйста, повторите запрос позднее!";
+
+      if (typeof errorEventPayload === "string") {
+        message = errorEventPayload;
+      }
+
+      console.log(errorEventPayload);
+
+      this.$refs.appToaster.error(message);
+    });
+
+    this.$root.$on(GLOBAL_TOASTER_SUCCESS_EVENT_NAME, (message) => {
+      this.$refs.appToaster.success(message);
+    });
+
+    this.$root.$on(SHOW_SPINNER_EVENT_NAME, () => {
+      this.isShowContent = false;
+      this.$refs.appSpinner.show();
+    });
+
+    this.$root.$on(HIDE_SPINNER_EVENT_NAME, () => {
+      this.$refs.appSpinner.hide();
+      this.isShowContent = true;
+    });
+  },
+};
+</script>
+
+<style scoped></style>

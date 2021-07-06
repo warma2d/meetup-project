@@ -1,5 +1,6 @@
 {
   "name": "meetup-project",
+  "author": "warma2d",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +9,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "lodash-es": "^4.17.21",
     "vue": "^2.6.11",
+    "vue-meta": "^2.4.0",
+    "vue-reactive-storage": "github:ropbla9/vue-reactive-storage",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

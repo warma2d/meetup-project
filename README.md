@@ -1,4 +1,4 @@
-# meetup-project
+# test
 
 ## Project setup
 ```
