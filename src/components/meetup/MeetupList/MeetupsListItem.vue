@@ -57,7 +57,7 @@ export default {
     coverStyle() {
       return this.meetup.imageId
         ? {
-            "--bg-url": `url('${getImageUrlByImageId(this.meetup.id)}')`,
+            "--bg-url": `url('${getImageUrlByImageId(this.meetup.imageId)}')`,
           }
         : {};
     },

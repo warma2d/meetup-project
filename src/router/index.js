@@ -1,12 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomePage from "@/pages/HomePage";
-import NotFoundPage from "@/pages/NotFoundPage";
-import MeetupPage from "@/pages/MeetupPage";
-import MeetupDescription from "@/components/meetup/MeetupView/MeetupDescription";
-import MeetupAgenda from "@/components/meetup/MeetupView/MeetupAgenda";
-import CreateMeetupPage from "@/pages/CreateMeetupPage";
-import LoginPage from "@/pages/LoginPage";
+const HomePage = () => import("@/pages/HomePage");
+const NotFoundPage = () => import("@/pages/NotFoundPage");
+const MeetupPage = () => import("@/pages/MeetupPage");
+const MeetupDescription = () =>
+  import("@/components/meetup/MeetupView/MeetupDescription");
+const MeetupAgenda = () =>
+  import("@/components/meetup/MeetupView/MeetupAgenda");
+const CreateMeetupPage = () => import("@/pages/CreateMeetupPage");
+const LoginPage = () => import("@/pages/LoginPage");
 import {
   INDEX_ROUTE_NAME,
   MEETUPS_ROUTE_NAME,

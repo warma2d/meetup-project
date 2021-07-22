@@ -21,9 +21,16 @@
 <script>
 import { getImageUrlByImageId } from "@/js/meetupFunctions";
 import { ImageApi } from "@/js/api/ImageApi";
+import { ResponseHandler } from "@/mixins/ResponseHandler";
+import {
+  GLOBAL_TOASTER_ERROR_EVENT_NAME,
+  MAX_ALLOW_UPLOAD_IMAGE_BYTES,
+} from "@/js/constants";
 
 export default {
   name: "ImageUploader",
+
+  mixins: [ResponseHandler],
 
   computed: {
     isLoadImage() {
@@ -69,14 +76,31 @@ export default {
         this.isLoading = true;
         let file = event.target.files[0];
 
-        new ImageApi().uploadImage(file).then((res) => {
-          if (res.data.id !== undefined) {
-            this.$emit("change", res.data.id);
-          } else {
-            this.$emit("change", null);
-          }
+        if (file.size > MAX_ALLOW_UPLOAD_IMAGE_BYTES) {
+          this.$root.$emit(
+            GLOBAL_TOASTER_ERROR_EVENT_NAME,
+            "Ошибка! Максимальный размер файла: " +
+              MAX_ALLOW_UPLOAD_IMAGE_BYTES +
+              " байт"
+          );
           this.isLoading = false;
-        });
+          return;
+        }
+
+        new ImageApi()
+          .uploadImage(file)
+          .then((res) => {
+            if (res.data.id !== undefined) {
+              this.$emit("change", res.data.id);
+            } else {
+              this.$emit("change", null);
+            }
+            this.isLoading = false;
+          })
+          .catch((res) => {
+            this.handleErrorResponse(res);
+            this.isLoading = false;
+          });
       } else {
         this.$emit("change", null);
       }

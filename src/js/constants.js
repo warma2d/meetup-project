@@ -19,6 +19,10 @@ export const GLOBAL_TOASTER_SUCCESS_EVENT_NAME = "toaster:ok";
 export const SHOW_SPINNER_EVENT_NAME = "spinner:show";
 export const HIDE_SPINNER_EVENT_NAME = "spinner:hide";
 
+export const HTTP_UNAUTHORIZED_CODE = 401;
+
+export const MAX_ALLOW_UPLOAD_IMAGE_BYTES = 2000000;
+
 export const NAV_OPTIONS = [
   {
     name: INDEX_ROUTE_NAME,
