@@ -20,7 +20,7 @@ export const SHOW_SPINNER_EVENT_NAME = "spinner:show";
 export const HIDE_SPINNER_EVENT_NAME = "spinner:hide";
 
 export const HTTP_UNAUTHORIZED_CODE = 401;
-export const HTTP_SUCCESS_STATUS = 200;
+export const HTTP_SUCCESS_CODE = 200;
 
 export const MAX_ALLOW_UPLOAD_IMAGE_BYTES = 2000000;
 

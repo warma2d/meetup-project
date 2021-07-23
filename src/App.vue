@@ -20,7 +20,7 @@ import {
   SHOW_SPINNER_EVENT_NAME,
   HIDE_SPINNER_EVENT_NAME,
   HTTP_UNAUTHORIZED_CODE,
-  HTTP_SUCCESS_STATUS,
+  HTTP_SUCCESS_CODE,
   GUEST_ROLE_NAME,
   USER_ROLE_NAME,
 } from "@/js/constants";
@@ -73,7 +73,7 @@ export default {
     new AuthApi()
       .getUser()
       .then((res) => {
-        if (res.status === HTTP_SUCCESS_STATUS) {
+        if (res.status === HTTP_SUCCESS_CODE) {
           this.localStorage.userRole = USER_ROLE_NAME;
         } else {
           this.localStorage.userRole = GUEST_ROLE_NAME;
