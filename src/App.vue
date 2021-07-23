@@ -19,8 +19,13 @@ import {
   GLOBAL_TOASTER_SUCCESS_EVENT_NAME,
   SHOW_SPINNER_EVENT_NAME,
   HIDE_SPINNER_EVENT_NAME,
+  HTTP_UNAUTHORIZED_CODE,
+  HTTP_SUCCESS_STATUS,
+  GUEST_ROLE_NAME,
+  USER_ROLE_NAME,
 } from "@/js/constants";
 import AppSpinner from "@/components/AppSpinner/AppSpinner";
+import { AuthApi } from "@/js/api/AuthApi";
 
 export default {
   name: "App",
@@ -64,6 +69,21 @@ export default {
       this.$refs.appSpinner.hide();
       this.isShowContent = true;
     });
+
+    new AuthApi()
+      .getUser()
+      .then((res) => {
+        if (res.status === HTTP_SUCCESS_STATUS) {
+          this.localStorage.userRole = USER_ROLE_NAME;
+        } else {
+          this.localStorage.userRole = GUEST_ROLE_NAME;
+        }
+      })
+      .catch((res) => {
+        if (res.response.status === HTTP_UNAUTHORIZED_CODE) {
+          this.localStorage.userRole = GUEST_ROLE_NAME;
+        }
+      });
   },
 };
 </script>
